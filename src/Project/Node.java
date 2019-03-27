@@ -1,13 +1,19 @@
 package Project;
 
 public class Node<T> {
-    Node<T> left, right;
     T data;
+    Node<T> left, right;
 
     public Node(Node left, Node right, T data) {
         this.left = left;
         this.right = right;
         this.data = data;
+    }
+
+    public Node(T data){
+        left=null;
+        right=null;
+        this.data=data;
     }
 
     public Node<T> getLeft() {
@@ -33,4 +39,28 @@ public class Node<T> {
     public void setData(T data) {
         this.data = data;
     }
+
+    public boolean isLeaf(){
+        return left==right&&left==null;
+    }
+
+    public boolean hasLeftChild(){
+        return left!=null;
+    }
+
+    public boolean hasRightChild(){
+        return right!=null;
+    }
+
+    public Node<T> copy(){
+        Node<T> out = new Node<T>(data);
+        if(left!=null)
+            out.setLeft(left.copy());
+        if(right!=null)
+            out.setRight(right.copy());
+        return out;
+    }
+//    public void copy(Node<T> source){
+//        left=source.getLeft()
+//    }
 }
