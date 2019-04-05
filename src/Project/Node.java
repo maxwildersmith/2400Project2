@@ -52,6 +52,12 @@ public class Node<T> {
         return right!=null;
     }
 
+    public void set(Node<T> source){
+        data=source.getData();
+        setLeft(source.getLeft());
+        setRight(source.getRight());
+    }
+
     public Node<T> copy(){
         Node<T> out = new Node<T>(data);
         if(left!=null)
@@ -60,6 +66,8 @@ public class Node<T> {
             out.setRight(right.copy());
         return out;
     }
+
+
 //    public void copy(Node<T> source){
 //        left=source.getLeft()
 //    }

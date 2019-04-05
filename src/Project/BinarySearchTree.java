@@ -12,7 +12,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
     }
 
     public String preorder(){
-        return preorder(root);
+        return preorder(root).trim();
     }
 
     private String preorder(Node<T> node){
@@ -22,7 +22,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
     }
 
     public String postorder(){
-        return postorder(root);
+        return postorder(root).trim();
     }
 
     private String postorder(Node<T> node){
@@ -32,7 +32,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
     }
 
     public String inorder(){
-        return inorder(root);
+        return inorder(root).trim().replace("  "," ");
     }
 
     private String inorder(Node<T> node){
@@ -58,7 +58,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
         else if (entry.compareTo(start.getData())<0)
             start.setLeft(add(start.left,entry));
         else
-            throw new IllegalStateException("Duplication!");
+            throw new IllegalStateException(entry+" already exists!");
         return start;
     }
 
@@ -74,14 +74,26 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
 
 
     public T remove(T target) {
-        return remove(target,root);
+        return remove(target,root).getData();
     }
 
-    private T remove(T target, Node<T> start){
-        switch (start.getData().compareTo(target)){
-            case 1:break;
+    private Node<T> remove(T target, Node<T> start){
+        if(start==null)
+            return null;
+        else if(target.compareTo(start.getData())>0)
+            start.setRight(remove(target,start.getRight()));
+        else if (target.compareTo(start.getData())<0)
+            start.setLeft(remove(target,start.getLeft()));
+        else{
+            if(!start.hasLeftChild())
+                return start.getRight();
+            else if (!start.hasRightChild())
+                return start.getLeft();
+
+            start.setData(findMin(start.getRight()));
+            start.setRight(remove(start.getData(),start.getRight()));
         }
-        return null;
+        return start;
     }
 
     public void removeAll(T target) {
@@ -89,7 +101,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
     }
 
     public T removeMin() {
-        return removeMin(root);
+        return remove(findMin());
     }
 
     private T removeMin(Node<T> start){
@@ -102,7 +114,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
     }
 
     public T removeMax() {
-        return removeMax(root);
+        return remove(findMax());
     }
 
     private T removeMax(Node<T> start){
