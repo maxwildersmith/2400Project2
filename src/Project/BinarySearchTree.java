@@ -41,10 +41,21 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
         return inorder(node.getLeft())+" "+node.getData()+" "+inorder(node.getRight());
     }
 
-    private boolean contains(T entry){
-        return false;
+    public boolean contains(T entry){
+        return contains(entry, root);
     }
 
+    private boolean contains(T entry, Node<T> start){
+        if(start==null)
+            return false;
+        if(entry.equals(start.getData()))
+            return true;
+        else if(entry.compareTo(start.getData())>0)
+            return contains(entry,start.getRight());
+        else if (entry.compareTo(start.getData())<0)
+            return contains(entry,start.getLeft());
+        return false;
+    }
 
     public void add(T entry) {
         root = add(root, entry);
@@ -62,6 +73,10 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
         return start;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumberOfNodes(){
         return getNumberOfNodes(root);
     }
