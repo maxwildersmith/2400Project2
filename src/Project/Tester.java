@@ -17,6 +17,7 @@ public class Tester {
          */
         boolean running = true;
         while(running){
+            in=new Scanner(System.in);
             System.out.println("Please enter values:");
             String[] inputs=in.nextLine().trim().split(" ");
 
