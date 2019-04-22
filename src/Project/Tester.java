@@ -33,9 +33,9 @@ public class Tester {
                 try {
                     switch (in.nextInt()) {
                         case 1:
-                            data = new Integer[10][];
+                            data = new Integer[5][];
                             for (int i = 0; i < data.length; i++) {
-                                Integer[] tmp = new Integer[10];
+                                Integer[] tmp = new Integer[18];
                                 for (int j = 0; j < tmp.length; j++)
                                     tmp[j] = (int) (Math.random() * 999) + 1;
                                 data[i] = removeDuplicates(tmp);
